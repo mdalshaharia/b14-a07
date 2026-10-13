@@ -15,7 +15,9 @@ const fieldClass =
 
 const labelClass = "mb-1.5 block text-sm font-medium text-gray-900";
 
-export default function SignupForm() {
+import React from 'react';
+
+const SignupPage = () => {
 
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
@@ -198,3 +200,5 @@ export default function SignupForm() {
         </main>
     );
 }
+
+export default SignupPage;
