@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono, Noto_Sans_Bengali } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
+// import Marquee from "@/components/Marquee/Marquee";
 
 
 const NotoSansBangla = Noto_Sans_Bengali({
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
         {children}
 
         </main>
+        {/* <Marquee></Marquee> */}
         
         </body>
     </html>

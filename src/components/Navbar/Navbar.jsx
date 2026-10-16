@@ -74,8 +74,8 @@ const Navbar = () => {
                         session ?
                             <span className="flex  items-center gap-1 text-center text-sm font-medium text-gray-900 sm:text-base">
                                 <div className="avatar">
-                                    <div className="w-24 rounded-xl">
-                                        <Image alt="" src={session?.user?.image} />
+                                    <div className="w-6 rounded-xl">
+                                        {/* <Image height={8} width={8} alt="user image" href='https://unsplash.com/photos/a-man-in-a-white-shirt-is-posing-for-a-picture-mRVP1c59wko' /> */}
                                     </div>
                                 </div>
                                 <p>
