@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono, Noto_Sans_Bengali } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
+import Hero from "@/components/Hero/Hero";
 // import Marquee from "@/components/Marquee/Marquee";
 
 
@@ -27,6 +28,7 @@ export default function RootLayout({ children }) {
 
         </main>
         {/* <Marquee></Marquee> */}
+        <Hero></Hero>
         
         </body>
     </html>

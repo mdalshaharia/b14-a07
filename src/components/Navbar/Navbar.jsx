@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { authClient, useSession } from "@/app/lib/auth-client";
@@ -22,6 +22,7 @@ const Navbar = () => {
     const [categories, setCategories] = useState([]);
     const pathname = usePathname();
     const { data: session } = authClient.useSession()
+    // const dateFormtaer = formatBengaliDate(new Date());
     // console.log(categories)
 
     useEffect(() => {
