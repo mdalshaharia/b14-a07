@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono, Noto_Sans_Bengali } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar/Navbar";
 
 
 const NotoSansBangla = Noto_Sans_Bengali({
@@ -17,7 +18,15 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${NotoSansBangla.variable}} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        
+        <Navbar></Navbar>
+        <main>
+        {children}
+
+        </main>
+        
+        </body>
     </html>
   );
 }
