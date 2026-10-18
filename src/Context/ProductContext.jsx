@@ -16,13 +16,10 @@ export function ProductProvider({ children }) {
       setError(null)
       try {
         const res = await fetch('https://api.abcz.workers.dev/api/bazardor/products')
-        
         if (!res.ok) {
           throw new Error(`Failed to fetch data (Status: ${res.status})`)
         }
-
         const data = await res.json()
-        
         const productList = Array.isArray(data) ? data : data.products || []
         
         setProducts(productList)

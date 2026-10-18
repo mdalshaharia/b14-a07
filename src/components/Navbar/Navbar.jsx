@@ -44,7 +44,7 @@ const Navbar = () => {
 
         fetchCategories()
     }, [])
-    console.log(categories)
+    // console.log(categories)
 
     return (
         <header className="border-b border-gray-100 bg-[#fafcfa]/90 backdrop-blur">
@@ -107,8 +107,8 @@ const Navbar = () => {
                         <div className="max-w-7xl  mx-auto pl-20 flex flex-wrap gap-2 py-2 text-sm font-semibold sm:gap-3 text-black">
                             {categories.map((category) => {
                                 const isActive = pathname === `/categories/${category.slug}`;
-                                console.log('now active', isActive,)
-                                console.log('now pathname is', pathname,)
+                                // console.log('now active', isActive,)
+                                // console.log('now pathname is', pathname,)
                                 return (
                                     <Link
                                         key={category.id}
