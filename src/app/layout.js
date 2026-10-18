@@ -2,8 +2,10 @@ import { Geist, Geist_Mono, Noto_Sans_Bengali } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import Hero from "@/components/Hero/Hero";
+import IncreasingProduct from "@/components/IncreasingProduct/IncreasingProduct";
+import { ProductProvider } from "@/Context/ProductContext";
+import DecreasingProduct from "@/components/decreasingproduct/DecreasingProduct";
 // import Marquee from "@/components/Marquee/Marquee";
-
 
 const NotoSansBangla = Noto_Sans_Bengali({
   subsets: ["latin"],
@@ -21,16 +23,15 @@ export default function RootLayout({ children }) {
       className={`${NotoSansBangla.variable}} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        
-        <Navbar></Navbar>
-        <main>
-        {children}
-
-        </main>
-        {/* <Marquee></Marquee> */}
-        <Hero></Hero>
-        
-        </body>
+        <ProductProvider>
+          <Navbar></Navbar>
+          <main>{children}</main>
+          {/* <Marquee></Marquee> */}
+          <Hero></Hero>
+          <IncreasingProduct></IncreasingProduct>
+        <DecreasingProduct></DecreasingProduct>
+        </ProductProvider>
+      </body>
     </html>
   );
 }
