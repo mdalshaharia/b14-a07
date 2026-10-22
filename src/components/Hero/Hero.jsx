@@ -5,16 +5,16 @@ import Link from "next/link";
 import Image from "next/image";
 
 const formatBengaliDate = (date) => {
-    const formattedDate = new Intl.DateTimeFormat('bn-BD', {
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-    }).format(date);
-    return formattedDate;
+  const formattedDate = new Intl.DateTimeFormat('bn-BD', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  }).format(date);
+  return formattedDate;
 }
 
- const Hero = () => {
+const Hero = () => {
   const [today, setToday] = useState("");
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const formatBengaliDate = (date) => {
   }, []);
 
   return (
-    <section className="max-w-7xl mx-auto w-full px-3 py-3 sm:px-4 sm:py-4">
+    <section className="max-w-7xl mx-auto mt-10">
       <div className=" rounded-3xl border border-gray-200 bg-[#fbfdfb] px-5 py-5 sm:px-6 lg:px-6">
         <div className="flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
           <div className="max-w-xl lg:max-w-2xl">
@@ -40,12 +40,16 @@ const formatBengaliDate = (date) => {
               বিস্তারিত, গড়, সর্বনিম্ন-সর্বাধিক এবং দামের পরিবর্তন এক জায়গায়।
             </p>
 
-            <Link
-              href="/#products"
+            <button
+              onClick={() => {
+                document.getElementById("product").scrollIntoView({
+                  behavior: "smooth",
+                });
+              }}
               className="btn mt-6 h-10 min-h-0 rounded-lg border-0 bg-green-700 px-5 text-sm font-semibold text-white shadow-lg shadow-green-700/30 hover:bg-green-800"
             >
               সব পণ্য দেখুন
-            </Link>
+            </button>
           </div>
           <Image
             src="/bazar-hero.png"

@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { authClient, useSession, updateUser } from "@/app/lib/auth-client";
+import { authClient, useSession, updateUser, signOut } from "@/app/lib/auth-client";
 import Image from "next/image";
 
 
 
-export default function ProfilePage({ user = demoUser }) {
+export default function ProfilePage() {
     const [name, setName] = useState("");
     const [loading, setLoading] = useState(false);
     const { data: session } = authClient.useSession()
@@ -47,7 +47,8 @@ const handleUpdate = async (e) => {
     }
 };
 console.log(name)
-    const handleSignOut = () => {
+    const handleSignOut = async () => {
+         await authClient.signOut()
     };
 
     return (
@@ -95,7 +96,7 @@ console.log(name)
                         onClick={handleSignOut}
                         className="btn h-10 min-h-0 w-full gap-1.5 rounded-lg border border-red-400 bg-transparent px-4 text-sm font-semibold text-red-600 shadow-none hover:border-red-500 hover:bg-red-50 sm:w-auto"
                     >
-                        <SignOutIcon />
+                        {/* <SignOutIcon />/ */}
                         সাইন আউট
                     </button>
                 </section>

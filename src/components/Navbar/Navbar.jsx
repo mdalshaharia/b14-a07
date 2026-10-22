@@ -6,7 +6,7 @@ import { authClient, useSession } from "@/app/lib/auth-client";
 import { usePathname } from "next/navigation";
 import { LuUserRound } from "react-icons/lu";
 import { BiLogOut } from "react-icons/bi";
-
+import { GoTriangleUp, GoTriangleDown } from "react-icons/go";
 
 const formatBengaliDate = (date) => {
     const formattedDate = new Intl.DateTimeFormat('bn-BD', {
@@ -24,7 +24,6 @@ const Navbar = () => {
     const [categories, setCategories] = useState([]);
     const pathname = usePathname();
     const { data: session } = authClient.useSession()
-    const [open, setOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const openModal = () => setIsModalOpen((prev) => !prev);
@@ -54,25 +53,23 @@ const Navbar = () => {
 
     const handleSignout = async () => {
         await authClient.signOut()
-        consoe.log('signout clicked')
     }
-    console.log(open)
-    console.log(session)
+
 
     return (
         <header className="border-b border-gray-100 bg-[#fafcfa]/90 backdrop-blur">
             <div className="navbar mx-auto min-h-0 max-w-7xl gap-2 px-3 py-3 sm:px-6 lg:px-8">
                 <div className="navbar-start min-w-0 flex-1">
                     <Link href="/" className="flex min-w-0 items-center gap-3">
-                        {/* <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-green-700 text-green-100 sm:h-11 sm:w-11">
+                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-green-700 text-green-100 sm:h-11 sm:w-11">
                             <Image
-                                src="/logo.png"
+                                src="/logo-icon.png"
                                 alt="Logo"
-                                width={40}
-                                height={40}
+                                width={25}
+                                height={25}
                             />
-                        </span> */}
-                        <span className="min-w-0 leading-tight">
+                        </span>
+                        <span className="min-w-0 ">
                             <span className="block truncate text-base font-bold text-gray-900 sm:text-lg">
                                 বাজার দর
                             </span>
@@ -82,7 +79,6 @@ const Navbar = () => {
                         </span>
                     </Link>
                 </div>
-
                 <div className="relative z-10 navbar-end flex w-auto flex-none gap-1 sm:gap-3">
                     {session ? (
                         <>
@@ -97,7 +93,7 @@ const Navbar = () => {
                                             height={40}
                                             width={40}
                                             alt="user image"
-                                            src="https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D"
+                                            src={session?.user?.image || "/default-user.png"}
                                         />
                                     </div>
                                 </div>
@@ -161,22 +157,20 @@ const Navbar = () => {
             <div>
                 {
                     categories.length > 0 && (
-                        <div className="max-w-7xl  mx-auto pl-20 flex flex-wrap gap-2 py-2 text-sm font-semibold sm:gap-3 text-black">
+                        <div className="max-w-7xl mx-auto pl-20 flex flex-wrap gap-2 py-2 text-sm font-semibold sm:gap-3 text-black">
                             {categories.map((category) => {
                                 const isActive = pathname === `/categories/${category.slug}`;
-                                // console.log('now active', isActive,)
-                                // console.log('now pathname is', pathname,)
                                 return (
                                     <Link
                                         key={category.id}
                                         href={`/categories/${category.id}`}
                                         className={`h-9 text-black rounded-lg px-2 text-sm   sm:px-4 ${isActive
-                                            ? "text-[#C2F800]"
+                                            ? "text-green-600"
                                             : "text-black"
                                             }
                     `}
                                     >
-                                        <span>
+                                        <span className='mr-2'>
                                             {category.icon}
                                         </span>
                                         <span>

@@ -7,8 +7,6 @@ const toBnNumber = (number) => {
   return new Intl.NumberFormat('bn-BD').format(number);
 };
 
-// ---- Demo data: replace with data from your API / MongoDB ----
-
 function SummaryCard({ label, value, hint, tone }) {
     // console.log(value)
     const color = tone === "red" ? "text-red-600" : "text-green-700";
@@ -25,7 +23,6 @@ function SummaryCard({ label, value, hint, tone }) {
 }
 
 const ProductDetailPage = async ({ params }) => {
-    //   const { markets, yesterdayPrice } = product;
 
     const { slug } = await params
     let product = null
@@ -64,7 +61,7 @@ const ProductDetailPage = async ({ params }) => {
                             <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">
                                 {product.nameBn}
                             </h1>
-                            <p className="mt-0.5 text-xs text-gray-600">
+                            <p className="mt-3 text-xs text-gray-600">
                                 প্রতি কেজি · {product.categoryNameBn}
                             </p>
                             <p className="mt-1.5 text-xs text-gray-800 sm:text-sm">
@@ -76,7 +73,7 @@ const ProductDetailPage = async ({ params }) => {
                         </div>
                     </div>
 
-                    {/* Today's price box */}
+    
                     <div className="w-full rounded-2xl bg-[#f1f5f0] px-6 py-4 text-center sm:w-auto sm:min-w-[11rem]">
                         <p className="text-xs text-gray-600">আজকের দাম</p>
                         <p className="text-4xl font-bold leading-tight text-gray-900">
