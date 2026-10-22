@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import { GoTriangleUp, GoTriangleDown } from "react-icons/go";
 
@@ -57,5 +58,6 @@ const ItemCard = ({ item }) => {
     </Link>
   );
 }
+
 
 export default ItemCard

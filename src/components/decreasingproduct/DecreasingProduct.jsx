@@ -1,3 +1,4 @@
+
 'use client'
 import React, { useContext } from 'react';
 import ItemCard from '../Card/ItemCard';
@@ -23,5 +24,6 @@ const DecreasingProduct = () => {
         </div>
     );
 };
+
 
 export default DecreasingProduct;

@@ -24,7 +24,7 @@ const formatBengaliDate = (date) => {
 
   return (
     <section className="max-w-7xl mx-auto w-full px-3 py-3 sm:px-4 sm:py-4">
-      <div className="relative overflow-hidden rounded-3xl border border-gray-200 bg-[#fbfdfb] px-5 py-5 sm:px-6 lg:px-6">
+      <div className=" rounded-3xl border border-gray-200 bg-[#fbfdfb] px-5 py-5 sm:px-6 lg:px-6">
         <div className="flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
           <div className="max-w-xl lg:max-w-2xl">
             <span className="inline-block rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
@@ -59,5 +59,6 @@ const formatBengaliDate = (date) => {
     </section>
   );
 }
+
 
 export default Hero

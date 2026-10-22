@@ -1,3 +1,4 @@
+
 "use client";
 
 import CategoryCard from "@/components/Card/CategoryCard";

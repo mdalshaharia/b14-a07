@@ -9,10 +9,8 @@ export default function Home() {
     <div className="">
       <Navbar></Navbar>
       <Hero></Hero>
-      <div id="products">
-        <IncreasingProduct></IncreasingProduct>
-        <DecreasingProduct></DecreasingProduct>
-      </div>
+      <IncreasingProduct></IncreasingProduct>
+      <DecreasingProduct></DecreasingProduct>
     </div>
   );
 }

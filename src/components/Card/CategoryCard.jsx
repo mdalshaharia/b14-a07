@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 const toBn = (value, options) => Number(value).toLocaleString("bn-BD", options);
@@ -32,4 +33,3 @@ const CategoryCard = ({product}) => {
   );
 };
 
-export default CategoryCard;

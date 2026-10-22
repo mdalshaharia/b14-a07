@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 const Marquee = () => {
@@ -9,5 +10,6 @@ const Marquee = () => {
         </div>
     );
 };
+
 
 export default Marquee;

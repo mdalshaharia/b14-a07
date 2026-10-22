@@ -1,9 +1,11 @@
 'use client'
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { authClient } from "@/app/lib/auth-client";
+import { authClient, useSession } from "@/app/lib/auth-client";
 import { usePathname } from "next/navigation";
+import { LuUserRound } from "react-icons/lu";
+import { BiLogOut } from "react-icons/bi";
 
 
 const formatBengaliDate = (date) => {
@@ -21,11 +23,15 @@ const Navbar = () => {
     const [today, setToday] = useState("");
     const [categories, setCategories] = useState([]);
     const pathname = usePathname();
-    const { data: session } = authClient.useSession();
+    const { data: session } = authClient.useSession()
+    const [open, setOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => setIsModalOpen((prev) => !prev);
+    const closeModal = () => setIsModalOpen(false);
 
     useEffect(() => {
-        const timer = setTimeout(() => setToday(formatBengaliDate(new Date())), 0);
-        return () => clearTimeout(timer);
+        setToday(formatBengaliDate(new Date()));
     }, []);
 
     useEffect(() => {
@@ -45,19 +51,27 @@ const Navbar = () => {
     }, [])
     // console.log(categories)
 
+
+    const handleSignout = async () => {
+        await authClient.signOut()
+        consoe.log('signout clicked')
+    }
+    console.log(open)
+    console.log(session)
+
     return (
         <header className="border-b border-gray-100 bg-[#fafcfa]/90 backdrop-blur">
             <div className="navbar mx-auto min-h-0 max-w-7xl gap-2 px-3 py-3 sm:px-6 lg:px-8">
                 <div className="navbar-start min-w-0 flex-1">
                     <Link href="/" className="flex min-w-0 items-center gap-3">
-                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-green-700 text-green-100 sm:h-11 sm:w-11">
+                        {/* <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-green-700 text-green-100 sm:h-11 sm:w-11">
                             <Image
-                                src="/logo-icon.png"
+                                src="/logo.png"
                                 alt="Logo"
                                 width={40}
                                 height={40}
                             />
-                        </span>
+                        </span> */}
                         <span className="min-w-0 leading-tight">
                             <span className="block truncate text-base font-bold text-gray-900 sm:text-lg">
                                 বাজার দর
@@ -69,35 +83,79 @@ const Navbar = () => {
                     </Link>
                 </div>
 
-                <div className="navbar-end w-auto flex-none gap-1 sm:gap-3">
-                    {
-                        session ?
-                            <span className="flex  items-center gap-1 text-center text-sm font-medium text-gray-900 sm:text-base">
+                <div className="relative z-10 navbar-end flex w-auto flex-none gap-1 sm:gap-3">
+                    {session ? (
+                        <>
+                            <button
+                                type="button"
+                                onClick={openModal}
+                                className="flex items-center gap-1 text-center text-sm font-medium text-gray-900 sm:gap-3 sm:text-base"
+                            >
                                 <div className="avatar">
-                                    <div className="w-6 rounded-xl">
-                                        {/* <Image height={8} width={8} alt="user image" href='https://unsplash.com/photos/a-man-in-a-white-shirt-is-posing-for-a-picture-mRVP1c59wko' /> */}
+                                    <div className="w-10 rounded-lg">
+                                        <Image
+                                            height={40}
+                                            width={40}
+                                            alt="user image"
+                                            src="https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D"
+                                        />
                                     </div>
                                 </div>
-                                <p>
-                                    {session?.user?.name}
-                                </p>
-                            </span>
-                            :
-                            <>
-                                <Link
-                                    href="/signin"
-                                    className="btn btn-ghost btn-sm h-9 min-h-0 rounded-lg px-2 text-sm font-semibold text-gray-900 hover:bg-transparent hover:text-green-700 sm:px-4"
-                                >
-                                    সাইন ইন
-                                </Link>
-                                <Link
-                                    href="/signup"
-                                    className="btn btn-sm h-9 min-h-0 rounded-lg border-0 bg-green-700 px-3 text-sm font-semibold text-white shadow-lg shadow-green-700/30 hover:bg-green-800 sm:h-10 sm:px-5"
-                                >
-                                    সাইন আপ
-                                </Link>
-                            </>
-                    }
+                                <p>{session?.user?.name}</p>
+                            </button>
+
+                            {isModalOpen && (
+                                <div className="absolute right-0 top-full z-50 mt-2 w-72 rounded-2xl border border-gray-200 bg-[#fbfdfb] p-5 shadow-xl">
+                                    <p className="truncate text-base font-bold text-gray-900 sm:text-lg">
+                                        {session?.user?.name}
+                                    </p>
+
+                                    <p className="mt-1 truncate text-sm text-gray-500">
+                                        {session?.user?.email}
+                                    </p>
+
+                                    <Link
+                                        href="/profile"
+                                        onClick={closeModal}
+                                        className="mt-5 flex items-center gap-1 text-base text-gray-900 hover:text-green-700 text-md"
+                                    >
+                                        <span aria-hidden="true"><LuUserRound className="h-4 w-4"/></span>
+                                        আমার প্রোফাইল
+                                    </Link>
+
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            closeModal();
+                                           handleSignout();
+                                        }}
+                                        className="mt-2 flex items-center gap-2 text-base text-red-600 hover:text-red-700 text-md"
+                                    >
+                                        
+                                        <span aria-hidden="true"><BiLogOut className="h-5 w-5"/></span>
+                                        
+                                        সাইন আউট
+                                    </button>
+                                </div>
+                            )}
+                        </>
+                    ) : (
+                        <>
+                            <Link
+                                href="/signin"
+                                className="btn btn-ghost btn-sm h-9 min-h-0 rounded-lg px-2 text-sm font-semibold text-gray-900 hover:bg-transparent hover:text-green-700 sm:px-4"
+                            >
+                                সাইন ইন
+                            </Link>
+
+                            <Link
+                                href="/signup"
+                                className="btn btn-sm h-9 min-h-0 rounded-lg border-0 bg-green-700 px-3 text-sm font-semibold text-white shadow-lg shadow-green-700/30 hover:bg-green-800 sm:h-10 sm:px-5"
+                            >
+                                সাইন আপ
+                            </Link>
+                        </>
+                    )}
                 </div>
             </div>
             <div>
@@ -111,13 +169,12 @@ const Navbar = () => {
                                 return (
                                     <Link
                                         key={category.id}
-                                        href={`/categories/${category.slug}`}
-                                        className={`h-9 text-black rounded-lg px-2 text-sm   sm:px-4 ${
-                        isActive
-                          ? "text-[#C2F800]"
-                          : "text-black"
-                      }
-                    `} 
+                                        href={`/categories/${category.id}`}
+                                        className={`h-9 text-black rounded-lg px-2 text-sm   sm:px-4 ${isActive
+                                            ? "text-[#C2F800]"
+                                            : "text-black"
+                                            }
+                    `}
                                     >
                                         <span>
                                             {category.icon}

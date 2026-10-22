@@ -13,7 +13,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="bn" className={`${NotoSansBangla.className} h-full antialiased`}>
+    <html
+      lang="en"
+      className={`${NotoSansBangla.variable}} h-full antialiased`}
+    >
+
       <body className="min-h-full flex flex-col">
         <ProductProvider>
           <main>{children}</main>
