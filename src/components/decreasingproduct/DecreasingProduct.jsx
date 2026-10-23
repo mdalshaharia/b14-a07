@@ -15,7 +15,7 @@ const DecreasingProduct = () => {
             <p className='text-lg font-semibold text-gray-900 mb-3 flex items-center gap-3'>
                 <span className='text-green-500'>▼</span>
                 আজ দাম কমেছে </p>
-            <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
+            <div className=' grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 z-10'>
                 {
                     filteredProducts.map((item, idx) => {
                         return <ItemCard item={item} key={idx} />;

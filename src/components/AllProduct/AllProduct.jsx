@@ -14,7 +14,7 @@ const AllProduct = () => {
             <p className='text-lg font-semibold text-gray-900 mb-3 flex items-center gap-3'>
                 সব পণ্য </p>
                 <p className='text-sm text-gray-600 mb-3'>মোট  {toBn(products?.length)} টি পণ্য দেখানো হচ্ছে</p>
-            <div id='product' className=' grid grid-cols-3 gap-5 z-10'>
+            <div id='product' className=' grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 z-10'>
                 {
                     products.map((item, idx) => {
                         return <ItemCard item={item} key={idx} ></ItemCard>;

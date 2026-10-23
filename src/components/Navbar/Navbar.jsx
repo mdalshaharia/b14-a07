@@ -89,19 +89,17 @@ const Navbar = () => {
                             >
                                 <div className="avatar">
                                     <div className="w-10 rounded-lg flex items-center">
-                                        {
-                                            session.user.image ?
-                                            <Image
-                                                height={40}
-                                                width={40}
-                                                alt="user image"
-                                                src={session?.user?.image || "/default-user.png"}
-                                            /> :
-                                        <BiUserX className="h-7 w-7" />
-                                        }
+
+                                        <Image
+                                            height={40}
+                                            width={40}
+                                            alt="user image"
+                                            src={session?.user?.image || "/people.png"}
+                                        />
                                     </div>
                                 </div>
                                 <p>{session?.user?.name}</p>
+                                <span className="text-gray-900 ">▾</span>
                             </button>
 
                             {isModalOpen && (
@@ -119,7 +117,7 @@ const Navbar = () => {
                                         onClick={closeModal}
                                         className="mt-5 flex items-center gap-1 text-base text-gray-900 hover:text-green-700 text-md"
                                     >
-                                        <span aria-hidden="true"><LuUserRound className="h-4 w-4"/></span>
+                                        <span aria-hidden="true"><LuUserRound className="h-4 w-4" /></span>
                                         আমার প্রোফাইল
                                     </Link>
 
@@ -127,13 +125,12 @@ const Navbar = () => {
                                         type="button"
                                         onClick={() => {
                                             closeModal();
-                                           handleSignout();
+                                            handleSignout();
                                         }}
                                         className="mt-2 flex items-center gap-2 text-base text-red-600 hover:text-red-700 text-md"
                                     >
-                                        
-                                        <span aria-hidden="true"><BiLogOut className="h-5 w-5"/></span>
-                                        
+                                        <span aria-hidden="true"><BiLogOut className="h-5 w-5" /></span>
+
                                         সাইন আউট
                                     </button>
                                 </div>
@@ -161,14 +158,14 @@ const Navbar = () => {
             <div>
                 {
                     categories.length > 0 && (
-                        <div className="max-w-7xl mx-auto pl-20 flex flex-wrap gap-2 py-2 text-sm font-semibold sm:gap-3 text-black">
+                        <div className="max-w-7xl mx-auto lg:pl-20 flex flex-wrap gap-2 py-2 text-sm font-semibold sm:gap-3 text-black">
                             {categories.map((category) => {
                                 const isActive = pathname === `/categories/${category.slug}`;
                                 return (
                                     <Link
                                         key={category.id}
                                         href={`/categories/${category.id}`}
-                                        className={`h-9 text-black rounded-lg px-2 text-sm   sm:px-4 ${isActive
+                                        className={`h-5 text-black rounded-lg px-2 lg:text-sm md:text-sm text-[12px] sm:px-4 ${isActive
                                             ? "text-green-600"
                                             : "text-black"
                                             }
