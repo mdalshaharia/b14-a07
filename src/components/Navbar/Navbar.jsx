@@ -57,7 +57,7 @@ const Navbar = () => {
 
 
     return (
-        <header className="border-b border-gray-100 bg-[#fafcfa]/90 backdrop-blur">
+        <header className="border-b border-gray-100 bg-[#fafcfa]/90">
             <div className="navbar mx-auto min-h-0 max-w-7xl gap-2 px-3 py-3 sm:px-6 lg:px-8">
                 <div className="navbar-start min-w-0 flex-1">
                     <Link href="/" className="flex min-w-0 items-center gap-3">
@@ -101,7 +101,7 @@ const Navbar = () => {
                             </button>
 
                             {isModalOpen && (
-                                <div className="absolute right-0 top-full z-50 mt-2 w-72 rounded-2xl border border-gray-200 bg-[#fbfdfb] p-5 shadow-xl">
+                                <div className="absolute right-0 top-full z-100 mt-2 w-72 rounded-2xl border border-gray-200 bg-[#fbfdfb] p-5 shadow-xl">
                                     <p className="truncate text-base font-bold text-gray-900 sm:text-lg">
                                         {session?.user?.name}
                                     </p>

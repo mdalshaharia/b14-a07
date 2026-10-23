@@ -14,7 +14,7 @@ const NavMarquee = async() => {
         console.error('Failed to fetch product:', err)
     }
     return (
-        <div>
+        <div className=''>
             <NavMarqueeClient  product={product}></NavMarqueeClient>
         </div>
     );

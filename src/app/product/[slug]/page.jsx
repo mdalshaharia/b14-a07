@@ -35,7 +35,7 @@ const ProductDetailPage = async ({ params }) => {
     } catch (err) {
         console.error('Failed to fetch product:', err)
     }
-    console.log(product)
+    // console.log(product)
 
     const min = Math.min(...product.markets.map((m) => m.min));
     const max = Math.max(...product.markets.map((m) => m.max));
@@ -47,7 +47,7 @@ const ProductDetailPage = async ({ params }) => {
     const change = isUp ? "বেড়েছে" : isDown ? "কমেছে" : "অপরিবর্তিত আছে";
     const avg = toBnNumber(Math.round((min + max) / 2));
     // console.log(toBnNumber(avg));
-    console.log(avg)
+    // console.log(avg)
     return (
         <main className="min-h-screen bg-[#f1f5f0] px-3 py-5 sm:px-6 sm:py-7">
             <div className="mx-auto w-full max-w-6xl space-y-5">

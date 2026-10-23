@@ -2,6 +2,7 @@
 "use client";
 
 import CategoryCard from "@/components/Card/CategoryCard";
+import EmptyState from "@/components/EmptyState/EmptyState";
 import ProductContext from "@/Context/ProductContext";
 import { useParams } from "next/navigation";
 import { Suspense, useContext, useMemo, useState } from "react";
@@ -21,6 +22,10 @@ const CategoryPage = () => {
       () => products.filter((product) => product?.category === category),
       [products, category],
     );
+
+    if (filteredProducts.length === 0) {
+      return <EmptyState></EmptyState>
+    }
     // console.log(filteredProducts)
 
 

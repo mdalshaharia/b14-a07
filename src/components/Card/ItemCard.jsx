@@ -24,7 +24,7 @@ const ItemCard = ({ item }) => {
             {nameBn}
           </h3>
           <p className="mt-1 truncate text-sm text-gray-800 sm:mt-2">
-            প্রতি কেজি
+            প্রতি {unit === 'litre' ? 'লিটার' : unit === 'kg' ? 'কেজি' : unit === 'dozen' ? 'ডজন' : 'পিস'}
           </p>
         </div>
       </div>
