@@ -1,12 +1,14 @@
 
 import AllProduct from "@/components/AllProduct/AllProduct";
 import DecreasingProduct from "@/components/decreasingproduct/DecreasingProduct";
+import Footer from "@/components/Footer/Footer";
 import Hero from "@/components/Hero/Hero";
 import IncreasingProduct from "@/components/IncreasingProduct/IncreasingProduct";
 import NavMarquee from "@/components/Marquee/NavMarquee";
 import Navbar from "@/components/Navbar/Navbar";
 import Image from "next/image";
 import { Suspense } from "react";
+import { ToastContainer } from "react-toastify";
 
 export default function Home() {
   return (
@@ -19,6 +21,8 @@ export default function Home() {
       <IncreasingProduct ></IncreasingProduct>
       <DecreasingProduct></DecreasingProduct>
       <AllProduct></AllProduct>
+      <Footer></Footer>
+      <ToastContainer></ToastContainer>
     </div>
   );
 }

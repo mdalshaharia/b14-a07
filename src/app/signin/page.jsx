@@ -6,7 +6,7 @@ import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { signUp, signIn } from "../lib/auth-client";
-import { Spinner, toast } from "@heroui/react";
+// import { Spinner, toast } from "@heroui/react";
 // import { authClient, signUp } from "@/app/lib/auth-client";
 
 
@@ -17,6 +17,7 @@ const fieldClass =
 const labelClass = "mb-1.5 block text-sm font-medium text-gray-900";
 
 import React from 'react';
+import { toast } from "react-toastify";
 
 const SignInPage = () => {
 
@@ -25,30 +26,43 @@ const SignInPage = () => {
 
 
     const handleSignIn = async (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.currentTarget);
-        const ResData = Object.fromEntries(formData.entries());
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const ResData = Object.fromEntries(formData.entries());
+    
+    try {
+        setLoading(true);
+        setError('');
 
-        console.log(ResData)
-        // console.log(data, error)
-        try {
-            setLoading(true);
-            const { data, error } = await signIn.email({
-                email: ResData.email,
-                password: ResData.password,
-                callbackURL: "/",
-            });
-            console.log(data.token)
-            if (data.token) {
-                alert("user loggedin  Successfully. Redirecting to home page in 3s");
+        const { data, error } = await signIn.email({
+            email: ResData.email,
+            password: ResData.password,
+            callbackURL: "/",
+        });
+        if (error) {
+            // console.log("Sign-in error:", error.message);
+            if (error.message === 'Invalid email or password') {
+                setError("ইমেইল বা পাসওয়ার্ড ভুল হয়েছে। আবার চেষ্টা করুন।");
+            } else {
+                setError(error.message || "লগইন করতে সমস্যা হচ্ছে।");
             }
-
-        } catch (error) {
-            setError("কিছু একটা সমস্যা হয়েছে । আবার চেষ্টা করুন।");
-        } finally {
-            setLoading(false);
+            return;
         }
-    };
+
+        if (data) {
+            toast.success("লগইন সফল হয়েছে। হোম পেজে নেওয়া হচ্ছে...");
+            setTimeout(() => {
+                router.push("/");
+                router.refresh();
+            }, 1500);
+        }
+    } catch (err) {
+        console.error("Unexpected error:", err);
+        setError("কিছু একটা সমস্যা হয়েছে । আবার চেষ্টা করুন।");
+    } finally {
+        setLoading(false);
+    }
+};
 
     const handleGoogleSignIn = async () => {
         const data = await signIn.social({
@@ -83,7 +97,7 @@ const SignInPage = () => {
                             type="email"
                             autoComplete="email"
                             placeholder="you@example.com"
-                         
+
                             required
                             className={fieldClass}
                         />
@@ -115,7 +129,7 @@ const SignInPage = () => {
                         className="btn h-11 min-h-0 w-full rounded-xl border-0 bg-green-700 text-sm font-semibold text-white shadow-lg shadow-green-700/30 hover:bg-green-800 disabled:bg-green-700/60 sm:h-12"
                     >
                         {loading ? (
-                             <Spinner />
+                            <span className="loading loading-spinner loading-md"></span>
                         ) : (
                             "সাইন ইন করুন"
                         )}
@@ -134,11 +148,11 @@ const SignInPage = () => {
                         type="button"
                         className="btn flex items-center justify-center h-11 gap-1 rounded-xl border border-gray-200 bg-white px-2 text-[11px] font-semibold text-gray-900 shadow-none hover:bg-gray-50 sm:text-xs"
                     >
-                        <FcGoogle className="text-md"/>
+                        <FcGoogle className="text-md" />
                         <span className="text-xs">Google দিয়ে চালিয়ে যান</span>
                     </button>
                     <button
-                    onClick={handleGithubSignIn}
+                        onClick={handleGithubSignIn}
                         type="button"
                         className="btn flex items-center justify-center h-11 gap-1 rounded-xl border border-gray-200 bg-white px-2 text-[11px] font-semibold text-gray-900 shadow-none hover:bg-gray-50 sm:text-xs"
                     >

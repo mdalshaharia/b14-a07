@@ -1,6 +1,7 @@
 import { Noto_Sans_Bengali } from "next/font/google";
 import "./globals.css";
 import { ProductProvider } from "@/Context/ProductContext";
+import { ToastContainer } from "react-toastify";
 
 const NotoSansBangla = Noto_Sans_Bengali({
   subsets: ["latin"],
@@ -21,6 +22,7 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col">
         <ProductProvider>
           <main>{children}</main>
+          <ToastContainer />
         </ProductProvider>
       </body>
     </html>

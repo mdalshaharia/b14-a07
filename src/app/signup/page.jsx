@@ -17,11 +17,14 @@ const fieldClass =
 const labelClass = "mb-1.5 block text-sm font-medium text-gray-900";
 
 import React from 'react';
+import { Router } from "next/router";
+import { router } from "better-auth/api";
+import { useRouter } from "next/navigation";
 
 const SignupPage = () => {
-
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
 
     const handleSubmit = async (e) => {
@@ -40,21 +43,33 @@ const SignupPage = () => {
         }
         try {
             setLoading(true);
+            setError('');
             const { data, error } = await signUp.email({
                 name: ResData.name,
                 email: ResData.email,
                 password: ResData.password,
             });
-            console.log(data.token)
-            if (data.token) {
-                alert("user Created Successfully. Redirecting to Signin page in 3s");
+            console.log(error)
+            console.log(data)
+            if (data?.token || data?.user) {
+                alert("রেজিস্ট্রেশন সফল হয়েছে, লগইন করুন");
+                router.push('/signin')
             }
+            if (error) {
+                if (error.message === 'User already exists. Use another email.') {
+                    setError('এই ইমেইল দিয়ে একটি অ্যাকাউন্ট রয়েছে, অন্যটি চেষ্টা করুন।');
+                } else {
+                    setError(error.message || "কিছু একটা সমস্যা হয়েছে । আবার চেষ্টা করুন।");
+                }
+                return
 
-        } catch (error) {
-            setError("কিছু একটা সমস্যা হয়েছে । আবার চেষ্টা করুন।");
+            }
+        }
+        catch (error) {
+            console.log(error)
         } finally {
             setLoading(false);
-        }
+        };
     };
 
     const handleGoogleSignIn = async () => {
@@ -93,7 +108,6 @@ const SignupPage = () => {
                             className={fieldClass}
                         />
                     </div>
-
                     <div>
                         <label htmlFor="email" className={labelClass}>ইমেইল</label>
                         <input
@@ -102,12 +116,10 @@ const SignupPage = () => {
                             type="email"
                             autoComplete="email"
                             placeholder="you@example.com"
-                         
                             required
                             className={fieldClass}
                         />
                     </div>
-
                     <div>
                         <label htmlFor="password" className={labelClass}>পাসওয়ার্ড</label>
                         <input
@@ -149,14 +161,12 @@ const SignupPage = () => {
                         className="btn h-11 min-h-0 w-full rounded-xl border-0 bg-green-700 text-sm font-semibold text-white shadow-lg shadow-green-700/30 hover:bg-green-800 disabled:bg-green-700/60 sm:h-12"
                     >
                         {loading ? (
-                             <Spinner />
+                            <span className="loading loading-spinner loading-md"></span>
                         ) : (
                             "অ্যাকাউন্ট তৈরি করুন"
                         )}
                     </button>
                 </form>
-
-                {/* Divider */}
                 <div className="my-4 flex items-center gap-3 text-xs text-gray-500">
                     <span className="h-px flex-1 bg-gray-200" />
                     অথবা
@@ -168,11 +178,11 @@ const SignupPage = () => {
                         type="button"
                         className="btn flex items-center justify-center h-11 gap-1 rounded-xl border border-gray-200 bg-white px-2 text-[11px] font-semibold text-gray-900 shadow-none hover:bg-gray-50 sm:text-xs"
                     >
-                        <FcGoogle className="text-md"/>
+                        <FcGoogle className="text-md" />
                         <span className="text-xs">Google দিয়ে চালিয়ে যান</span>
                     </button>
                     <button
-                    onClick={handleGithubSignIn}
+                        onClick={handleGithubSignIn}
                         type="button"
                         className="btn flex items-center justify-center h-11 gap-1 rounded-xl border border-gray-200 bg-white px-2 text-[11px] font-semibold text-gray-900 shadow-none hover:bg-gray-50 sm:text-xs"
                     >

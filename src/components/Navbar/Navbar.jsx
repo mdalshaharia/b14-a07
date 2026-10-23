@@ -5,7 +5,7 @@ import Image from "next/image";
 import { authClient, useSession } from "@/app/lib/auth-client";
 import { usePathname } from "next/navigation";
 import { LuUserRound } from "react-icons/lu";
-import { BiLogOut } from "react-icons/bi";
+import { BiLogOut, BiUserX } from "react-icons/bi";
 import { GoTriangleUp, GoTriangleDown } from "react-icons/go";
 
 const formatBengaliDate = (date) => {
@@ -88,13 +88,17 @@ const Navbar = () => {
                                 className="flex items-center gap-1 text-center text-sm font-medium text-gray-900 sm:gap-3 sm:text-base"
                             >
                                 <div className="avatar">
-                                    <div className="w-10 rounded-lg">
-                                        <Image
-                                            height={40}
-                                            width={40}
-                                            alt="user image"
-                                            src={session?.user?.image || "/default-user.png"}
-                                        />
+                                    <div className="w-10 rounded-lg flex items-center">
+                                        {
+                                            session.user.image ?
+                                            <Image
+                                                height={40}
+                                                width={40}
+                                                alt="user image"
+                                                src={session?.user?.image || "/default-user.png"}
+                                            /> :
+                                        <BiUserX className="h-7 w-7" />
+                                        }
                                     </div>
                                 </div>
                                 <p>{session?.user?.name}</p>
