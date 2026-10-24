@@ -52,6 +52,7 @@ const Hero = () => {
             </button>
           </div>
           <Image
+            loading="eager"
             src="/bazar-hero.png"
             alt="Basket"
             width={250}
