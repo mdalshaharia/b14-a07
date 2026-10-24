@@ -1,13 +1,13 @@
 
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { signUp, signIn } from "../lib/auth-client";
 import { toast } from 'react-toastify';
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 // import { Spinner, toast } from "@heroui/react";
 // import { authClient, signUp } from "@/app/lib/auth-client";
 
@@ -22,7 +22,15 @@ const SignInPage = () => {
 
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const searchParams = useSearchParams();
+    const message = searchParams.get('message');
     const router = useRouter()
+
+    useEffect(() => {
+        if (message === 'unauthorized') {
+            toast.warn("দয়া করে প্রথমে লগইন করুন!");
+        }
+    }, [message]);
 
     const handleSignIn = async (e) => {
         e.preventDefault();

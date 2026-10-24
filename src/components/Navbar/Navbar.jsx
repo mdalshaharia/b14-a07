@@ -89,7 +89,6 @@ const Navbar = () => {
                             >
                                 <div className="avatar">
                                     <div className="w-10 rounded-lg flex items-center">
-
                                         <Image
                                             height={40}
                                             width={40}
@@ -98,7 +97,7 @@ const Navbar = () => {
                                         />
                                     </div>
                                 </div>
-                                <p>{session?.user?.name}</p>
+                                <p>{(session?.user?.name).split(" ")[0]}</p>
                                 <span className="text-gray-900 ">▾</span>
                             </button>
 

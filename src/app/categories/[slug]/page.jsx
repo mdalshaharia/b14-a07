@@ -2,6 +2,7 @@
 "use client";
 
 import CategoryCard from "@/components/Card/CategoryCard";
+import ProductGridSkeleton from "@/components/Card/Skeleton";
 import EmptyState from "@/components/EmptyState/EmptyState";
 import ProductContext from "@/Context/ProductContext";
 import { useParams } from "next/navigation";
@@ -11,30 +12,32 @@ const toBn = (value, options) => Number(value).toLocaleString("bn-BD", options);
 
 const CategoryPage = () => {
 
-    const params = useParams()
+  const params = useParams()
   const category = params.slug
-  // console.log( 'from params' ,category)
   const [sortBy, setSortBy] = useState("default");
 
-    const { products } = useContext(ProductContext)
+  const { products, loading } = useContext(ProductContext)
 
-    const filteredProducts = useMemo(
-      () => products.filter((product) => product?.category === category),
-      [products, category],
-    );
+  const filteredProducts = useMemo(
+    () => products.filter((product) => product?.category === category),
+    [products, category],
+  );
 
-    if (filteredProducts.length === 0) {
-      return <EmptyState></EmptyState>
-    }
-    // console.log(filteredProducts)
+  if (loading) {
+    return <ProductGridSkeleton></ProductGridSkeleton>
+  }
+
+  if (filteredProducts.length === 0) {
+    return <EmptyState></EmptyState>
+  }
 
 
-    const sortedList = useMemo(() => {
+  const sortedList = useMemo(() => {
     const sorted = [...filteredProducts];
     if (sortBy === "দাম: কম থেকে বেশি") {
       sorted.sort((a, b) => (Number(a.today)) - (Number(b.today)));
     } else if (sortBy === "দাম: বেশি থেকে কম") {
-       sorted.sort((a, b) => (Number(b.today)) - (Number(a.today)));
+      sorted.sort((a, b) => (Number(b.today)) - (Number(a.today)));
     }
     return sorted;
   }, [filteredProducts, sortBy]);
@@ -78,7 +81,7 @@ const CategoryPage = () => {
 
         {sortedList.length > 0 ? (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {sortedList.map((p,idx) => (
+            {sortedList.map((p, idx) => (
               <CategoryCard key={idx} product={p} />
             ))}
           </div>

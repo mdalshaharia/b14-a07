@@ -3,58 +3,50 @@
 import { useState } from "react";
 import { authClient, useSession, updateUser, signOut } from "@/app/lib/auth-client";
 import Image from "next/image";
+import { toast } from 'react-toastify';
+import { useRouter } from "next/navigation";
 
 
-
-export default function ProfilePage() {
+const ProfilePage = () => {
     const [name, setName] = useState("");
     const [loading, setLoading] = useState(false);
-    const { data: session } = authClient.useSession()
+    const { data: session } = useSession()
+    const router = useRouter()
 
-    const initials = session?.user.name
-        ?.split(" ")
-        .map((w) => w[0])
-        .join("")
-        .slice(0, 2)
-        .toUpperCase();
+    // if (!session) {
+    //     router.push("/signin")
+    // }
 
-const handleUpdate = async (e) => {
-    e.preventDefault();
+    const handleUpdate = async (e) => {
+        e.preventDefault();
+        try {
+            setLoading(true);
+            const { data, error } = await authClient.updateUser({
+                name: name,
+            });
 
-    const trimmedName = name.trim();
+            if (data.status) {
+                toast.success('নাম সফলভাবে পরিবর্তন হয়েছে')
+            }
 
-    if (!trimmedName) return;
-
-    try {
-        setLoading(true);
-
-        const { data, error } = await authClient.updateUser({
-            name: trimmedName,
-        });
-
-        if (error) {
-            console.error("Failed to update profile:", error);
-            return;
+            if (error) {
+                console.log("Failed to update profile:", error);
+                return;
+            }
+        } catch (err) {
+            console.error("Unexpected error:", err);
+        } finally {
+            setLoading(false);
         }
+    };
 
-        console.log("Profile updated successfully:", data);
-
-        setName(trimmedName);
-    } catch (err) {
-        console.error("Unexpected error:", err);
-    } finally {
-        setLoading(false);
-    }
-};
-console.log(name)
     const handleSignOut = async () => {
-         await authClient.signOut()
+        await authClient.signOut()
     };
 
     return (
         <main className="min-h-screen bg-[#f1f5f0] px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
             <div className="mx-auto w-full max-w-4xl">
-                {/* Heading */}
                 <header className="mb-5">
                     <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">
                         আমার প্রোফাইল
@@ -66,27 +58,20 @@ console.log(name)
 
                 <section className="mb-5 flex flex-col gap-4 rounded-3xl border border-gray-200 bg-white/70 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
                     <div className="flex min-w-0 items-center gap-4">
-                        {session?.user.image ? (
-                
-                            <Image
+                        <Image
                             width={72}
                             height={72}
-                                src={session.user.image}
-                                alt={session.user.name}
-                                className="h-16 w-16 shrink-0 rounded-2xl bg-gray-100 object-cover sm:h-[4.5rem] sm:w-[4.5rem]"
-                            />
-                        ) : (
-                            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gray-200 text-lg font-semibold text-gray-700 sm:h-[4.5rem] sm:w-[4.5rem]">
-                                {initials}
-                            </div>
-                        )}
+                            src={session?.user?.image || "/people.png"}
+                            alt={session?.user?.name}
+                            className="h-16 w-16 shrink-0 rounded-2xl bg-gray-100 object-cover sm:h-[4.5rem] sm:w-[4.5rem]"
+                        />
 
                         <div className="min-w-0">
                             <p className="truncate text-lg font-medium text-gray-900">
-                                {session?.user.name}
+                                {session?.user?.name}
                             </p>
                             <p className="truncate text-sm text-gray-600 sm:text-base">
-                                {session?.user.email}
+                                {session?.user?.email}
                             </p>
                         </div>
                     </div>
@@ -96,12 +81,9 @@ console.log(name)
                         onClick={handleSignOut}
                         className="btn h-10 min-h-0 w-full gap-1.5 rounded-lg border border-red-400 bg-transparent px-4 text-sm font-semibold text-red-600 shadow-none hover:border-red-500 hover:bg-red-50 sm:w-auto"
                     >
-                        {/* <SignOutIcon />/ */}
                         সাইন আউট
                     </button>
                 </section>
-
-                {/* Info card */}
                 <section className="rounded-3xl border border-gray-200 bg-white/70 p-4 sm:p-5">
                     <h2 className="text-base font-semibold text-gray-900 sm:text-lg">
                         তথ্য
@@ -128,7 +110,6 @@ console.log(name)
                                 className="input h-11 w-full rounded-xl border border-gray-200 bg-white px-4 text-sm text-gray-800 focus:border-green-600 focus:outline-none focus:ring-2 focus:ring-green-600/20"
                             />
                         </div>
-
                         <button
                             type="submit"
                             disabled={loading}
@@ -146,3 +127,5 @@ console.log(name)
         </main>
     );
 }
+
+export default ProfilePage;

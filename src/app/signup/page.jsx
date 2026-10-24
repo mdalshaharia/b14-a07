@@ -7,6 +7,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { signUp, signIn } from "../lib/auth-client";
 import { toast } from 'react-toastify';
+import { useRouter } from "next/navigation";
 // import { Spinner, toast } from "@heroui/react";
 // import { authClient, signUp } from "@/app/lib/auth-client";
 
@@ -17,17 +18,12 @@ const fieldClass =
 
 const labelClass = "mb-1.5 block text-sm font-medium text-gray-900";
 
-import React from 'react';
-import { Router } from "next/router";
-import { router } from "better-auth/api";
-import { useRouter } from "next/navigation";
+
 
 const SignupPage = () => {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const router = useRouter();
-
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
@@ -97,7 +93,7 @@ const SignupPage = () => {
         } finally {
             setLoading(false);
         }
-    };    
+    };
     const handleGithubSignIn = async () => {
         try {
             setLoading(true);
@@ -136,7 +132,7 @@ const SignupPage = () => {
                 </p>
             </div>
 
-            <div className="w-full max-w-[22.5rem] rounded-3xl border border-gray-200 bg-white p-5 shadow-sm sm:max-w-[26rem] sm:p-6">
+            <div className="w-full max-w-90 rounded-3xl border border-gray-200 bg-white p-5 shadow-sm sm:max-w-104 sm:p-6">
                 <form onSubmit={handleSubmit} className="space-y-4" noValidate>
                     <div>
                         <label htmlFor="name" className={labelClass}>নাম</label>

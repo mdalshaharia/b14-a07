@@ -39,7 +39,7 @@ const ItemCard = ({ item }) => {
           {
             change.dir === 'flat' ?
             <span
-              className={`inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[#f1f5f0] text-black px-3 py-1.5 text-xs font-semibold sm:px-4 sm:py-2 sm:text-sm`}
+              className={`inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[#f1f5f0] text-gray-700 px-3 py-1.5 text-xs font-semibold sm:px-4 sm:py-2 sm:text-sm`}
             >
               - {change.pct}%
             </span>
