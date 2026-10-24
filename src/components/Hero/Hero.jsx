@@ -56,7 +56,7 @@ const Hero = () => {
             alt="Basket"
             width={250}
             height={250}
-            className="h-auto w-44  sm:w-56 md:mr-6 md:w-60 lg:mr-14 lg:w-64"
+            className="h-auto w-44  sm:w-56 md:mr-6 md:w-60 lg:mr-14 lg:w-64 hidden md:block lg:block"
           />
         </div>
       </div>

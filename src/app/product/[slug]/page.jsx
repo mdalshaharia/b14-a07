@@ -1,5 +1,5 @@
 export const instant = false
-
+import EmptyState from '@/components/EmptyState/EmptyState';
 const toBn = (value, options) => Number(value).toLocaleString("bn-BD", options);
 
 const toBnNumber = (number) => {
@@ -35,7 +35,13 @@ const ProductDetailPage = async ({ params }) => {
     } catch (err) {
         console.error('Failed to fetch product:', err)
     }
-    // console.log(product)
+    if (product === null) {
+        return <EmptyState message="দুঃখিত, পণ্যটি পাওয়া যায়নি।" />
+    }
+
+    if (!product || !product.markets || product.markets.length === 0) {
+        return <EmptyState message="দুঃখিত, পণ্যের বাজার তথ্য পাওয়া যায়নি।" />
+    }
 
     const min = Math.min(...product.markets.map((m) => m.min));
     const max = Math.max(...product.markets.map((m) => m.max));

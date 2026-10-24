@@ -7,7 +7,9 @@ import ProductContext from '@/Context/ProductContext';
 const DecreasingProduct = () => {
     const { products } = useContext(ProductContext)
 
-    const filteredProducts = products ? products.filter(product => product?.change?.dir === 'down') : [];
+    const filteredProducts = products
+        .filter(product => product?.change?.dir === 'down')
+        .sort((a, b) => (a?.change?.pct || 0) - (b?.change?.pct || 0)).slice(0, 6);
 
     return (
 

@@ -9,7 +9,9 @@ import ProductContext from '@/Context/ProductContext';
 const IncreasingProduct = () => {
 
     const { products } = useContext(ProductContext)
-    const filteredProducts = products.filter(product => product?.change?.dir === 'up');
+    const filteredProducts = products
+        .filter(product => product?.change?.dir === 'up')
+        .sort((a, b) => (b?.change?.pct || 0) - (a?.change?.pct || 0)).slice(0, 6);
     return (
         <div className='max-w-7xl mx-auto mt-12'>
             <p className='text-lg font-semibold text-gray-900 mb-3 flex items-center gap-3'>

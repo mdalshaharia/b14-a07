@@ -1,11 +1,10 @@
 const bar = "animate-pulse rounded bg-gray-200";
-export function ProductCardSkeleton() {
+const ProductCardSkeleton = () => {
   return (
     <div
       className="rounded-2xl border border-gray-200 bg-[#fbfdfb] p-3 sm:p-3.5"
       aria-hidden="true"
     >
-      {/* icon + name/unit */}
       <div className="flex items-center gap-3">
         <div className={`h-10 w-10 shrink-0 rounded-xl sm:h-[2.6rem] sm:w-[2.6rem] ${bar}`} />
         <div className="min-w-0 flex-1 space-y-2">
@@ -14,7 +13,6 @@ export function ProductCardSkeleton() {
         </div>
       </div>
 
-      {/* label + price + badge */}
       <div className="mt-3">
         <div className={`h-3 w-16 ${bar}`} />
         <div className="mt-2 flex items-center justify-between gap-2">
@@ -26,7 +24,7 @@ export function ProductCardSkeleton() {
   );
 }
 
-export default function ProductGridSkeleton({ count = 6 }) {
+ const ProductGridSkeleton = ({ count = 6 }) => {
   return (
     <div
       className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
@@ -40,3 +38,5 @@ export default function ProductGridSkeleton({ count = 6 }) {
     </div>
   );
 }
+
+export default ProductGridSkeleton

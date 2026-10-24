@@ -6,7 +6,8 @@ import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { signUp, signIn } from "../lib/auth-client";
-import { Spinner, toast } from "@heroui/react";
+import { toast } from 'react-toastify';
+// import { Spinner, toast } from "@heroui/react";
 // import { authClient, signUp } from "@/app/lib/auth-client";
 
 
@@ -52,7 +53,7 @@ const SignupPage = () => {
             console.log(error)
             console.log(data)
             if (data?.token || data?.user) {
-                alert("রেজিস্ট্রেশন সফল হয়েছে, লগইন করুন");
+                toast.success("রেজিস্ট্রেশন সফল হয়েছে, লগইন করুন");
                 router.push('/signin')
             }
             if (error) {
@@ -71,16 +72,57 @@ const SignupPage = () => {
             setLoading(false);
         };
     };
-
     const handleGoogleSignIn = async () => {
-        const data = await signIn.social({
-            provider: "google",
-        });
-    }
+        try {
+            setLoading(true);
+            setError('');
+
+            const { data, error } = await signIn.social({
+                provider: "google",
+                callbackURL: "/",
+            });
+            if (data) {
+                toast.success("গুগল লগইন সফল হয়েছে। হোম পেজে নেওয়া হচ্ছে...");
+            }
+            if (error) {
+                console.error("Google sign-in error:", error);
+                setError(error.message || "গুগল লগইন করতে সমস্যা হচ্ছে।");
+                setLoading(false); // Stop loading if it failed to redirect
+                return;
+            }
+
+        } catch (err) {
+            console.error("Unexpected error during social login:", err);
+            setError("কিছু একটা সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+        } finally {
+            setLoading(false);
+        }
+    };    
     const handleGithubSignIn = async () => {
-        const data = await signIn.social({
-            provider: "github",
-        });
+        try {
+            setLoading(true);
+            setError('');
+
+            const { data, error } = await signIn.social({
+                provider: "github",
+                callbackURL: "/",
+            });
+            if (data) {
+                toast.success("GitHub লগইন সফল হয়েছে। হোম পেজে নেওয়া হচ্ছে...");
+            }
+            if (error) {
+                console.error("GitHub sign-in error:", error);
+                setError(error.message || "GitHub লগইন করতে সমস্যা হচ্ছে।");
+                setLoading(false);
+                return;
+            }
+
+        } catch (err) {
+            console.error("Unexpected error during social login:", err);
+            setError("কিছু একটা সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (
@@ -178,16 +220,29 @@ const SignupPage = () => {
                         type="button"
                         className="btn flex items-center justify-center h-11 gap-1 rounded-xl border border-gray-200 bg-white px-2 text-[11px] font-semibold text-gray-900 shadow-none hover:bg-gray-50 sm:text-xs"
                     >
-                        <FcGoogle className="text-md" />
-                        <span className="text-xs">Google দিয়ে চালিয়ে যান</span>
+                        {loading ? (
+                            <span className="loading loading-spinner loading-md"></span>
+                        ) : (
+
+                            <>
+                                <FcGoogle className="text-md" />
+                                <span className="text-xs">Google দিয়ে চালিয়ে যান</span>
+                            </>
+                        )
+                        }
                     </button>
                     <button
                         onClick={handleGithubSignIn}
                         type="button"
                         className="btn flex items-center justify-center h-11 gap-1 rounded-xl border border-gray-200 bg-white px-2 text-[11px] font-semibold text-gray-900 shadow-none hover:bg-gray-50 sm:text-xs"
                     >
-                        <FaGithub className="text-md" />
-                        <span className="text-xs">GitHub দিয়ে চালিয়ে যান</span>
+                        {
+                            loading ? <span className="loading loading-spinner loading-md"></span> :
+                                <>
+                                    <FaGithub className="text-md" />
+                                    <span className="text-xs">GitHub দিয়ে চালিয়ে যান</span>
+                                </>
+                        }
                     </button>
                 </div>
 

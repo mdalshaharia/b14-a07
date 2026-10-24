@@ -8,7 +8,6 @@ import NavMarquee from "@/components/Marquee/NavMarquee";
 import Navbar from "@/components/Navbar/Navbar";
 import Image from "next/image";
 import { Suspense } from "react";
-import { ToastContainer } from "react-toastify";
 
 export default function Home() {
   return (
@@ -22,7 +21,6 @@ export default function Home() {
       <DecreasingProduct></DecreasingProduct>
       <AllProduct></AllProduct>
       <Footer></Footer>
-      <ToastContainer></ToastContainer>
     </div>
   );
 }

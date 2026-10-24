@@ -1,3 +1,5 @@
+import ProductGridSkeleton from "@/components/Card/Skeleton";
+import EmptyState from "@/components/EmptyState/EmptyState";
 import Navbar from "@/components/Navbar/Navbar";
 import { Suspense } from "react";
 
@@ -6,7 +8,7 @@ export default function CategoryLayout({
 }) {
   return <section>
 
-<Suspense fallback={<div>Loading products with Suspense...</div>}>
+<Suspense fallback={<ProductGridSkeleton></ProductGridSkeleton>}>
 <Navbar></Navbar>
   <div>
     {children}
