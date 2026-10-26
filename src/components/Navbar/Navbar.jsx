@@ -6,6 +6,7 @@ import { authClient, useSession } from "@/app/lib/auth-client";
 import { usePathname } from "next/navigation";
 import { LuUserRound } from "react-icons/lu";
 import { BiLogOut, BiUserX } from "react-icons/bi";
+import { toast } from 'react-toastify';
 import { GoTriangleUp, GoTriangleDown } from "react-icons/go";
 
 const formatBengaliDate = (date) => {
@@ -42,8 +43,6 @@ const Navbar = () => {
                 setCategories(result)
             } catch (error) {
                 console.error('Failed to fetch data:', error)
-            } finally {
-                // setLoading(false)
             }
         }
 
@@ -54,6 +53,7 @@ const Navbar = () => {
 
     const handleSignout = async () => {
         await authClient.signOut()
+        toast.success('লগ আউট সফল হয়েছে')
     }
 
 

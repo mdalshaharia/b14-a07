@@ -42,7 +42,7 @@ const ProfilePage = () => {
 
     const handleSignOut = async () => {
         await authClient.signOut()
-        toast
+        toast.success('লগ আউট সফল হয়েছে')
     };
 
     return (
