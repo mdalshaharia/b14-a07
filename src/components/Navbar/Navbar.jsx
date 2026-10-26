@@ -25,6 +25,7 @@ const Navbar = () => {
     const pathname = usePathname();
     const { data: session } = authClient.useSession()
     const [isModalOpen, setIsModalOpen] = useState(false);
+    console.log(session)
 
     const openModal = () => setIsModalOpen((prev) => !prev);
     const closeModal = () => setIsModalOpen(false);
