@@ -3,12 +3,16 @@
 import React, { useContext } from 'react';
 import ItemCard from '../Card/ItemCard';
 import ProductContext from '@/Context/ProductContext';
+import ProductGridSkeleton from '../Card/Skeleton';
 
 
 
 const IncreasingProduct = () => {
 
-    const { products } = useContext(ProductContext)
+    const { products, loading } = useContext(ProductContext)
+    if (loading) {
+        return <ProductGridSkeleton></ProductGridSkeleton>
+    }
     const filteredProducts = products
         .filter(product => product?.change?.dir === 'up')
         .sort((a, b) => (b?.change?.pct || 0) - (a?.change?.pct || 0)).slice(0, 6);
