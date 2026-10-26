@@ -5,7 +5,7 @@ import { GoTriangleUp, GoTriangleDown } from "react-icons/go";
 const toBn = (value, options) => Number(value).toLocaleString("bn-BD", options);
 
 const CategoryCard = ({product}) => {
-  console.log(product)
+  // console.log(product)
     return (
     <div className="rounded-2xl border border-gray-200 bg-[#fbfdfb] p-3 sm:p-3.5">
       <div className="flex items-center gap-3">

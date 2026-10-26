@@ -46,8 +46,8 @@ const SignupPage = () => {
                 email: ResData.email,
                 password: ResData.password,
             });
-            console.log(error)
-            console.log(data)
+            // console.log(error)
+            // console.log(data)
             if (data?.token || data?.user) {
                 toast.success("রেজিস্ট্রেশন সফল হয়েছে, লগইন করুন");
                 router.push('/signin')

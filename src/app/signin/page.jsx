@@ -45,7 +45,7 @@ const SignInPage = () => {
                 email: ResData.email,
                 password: ResData.password,
             });
-            console.log(data)
+            // console.log(data)
             if (data) {
                 toast.success("লগইন সফল হয়েছে। হোম পেজে নেওয়া হচ্ছে...");
                 setTimeout(() => {

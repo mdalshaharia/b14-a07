@@ -30,11 +30,11 @@ const ProfilePage = () => {
             }
 
             if (error) {
-                console.log("Failed to update profile:", error);
+                toast.error("কিছু একটা সমস্যা হয়েছে", error);
                 return;
             }
         } catch (err) {
-            console.error("Unexpected error:", err);
+            toast.error("কিছু একটা সমস্যা হয়েছে", err);
         } finally {
             setLoading(false);
         }
@@ -42,6 +42,7 @@ const ProfilePage = () => {
 
     const handleSignOut = async () => {
         await authClient.signOut()
+        toast
     };
 
     return (
